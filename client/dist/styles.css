@@ -1,0 +1,21 @@
+body {
+  text-align: center;
+}
+.movies {
+  width: 800px;
+  height: 600px;
+  margin: auto;
+  overflow: auto;
+}
+.movie {
+  text-align: center;
+  padding:10px;
+  margin: 10px;
+  background-color: gold;
+}
+.movie:hover {
+  background-color: lightgoldenrodyellow;
+}
+.watched {
+  float: left;
+}
