@@ -11,13 +11,15 @@ const Movie = (props) => {
   };
 
   return (
-    <div className='movie' onClick={toggleDetails}>
+    <div className='movie'>
       <div className='watched'>
         <input type='checkbox' onChange={toggleWatch} checked={props.movie.watched}/>
         {props.movie.watched ? 'Watched' : ''}
       </div>
-      <div className='movietext'>
+      <div className='movietext' onClick={toggleDetails}>
         {props.movie.title}
+      </div>
+      <div>
         {props.movie.show ? <MovieDetails movie={props.movie} /> : ''}
       </div>
     </div>

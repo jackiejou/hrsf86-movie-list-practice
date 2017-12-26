@@ -90,11 +90,9 @@ class MovieList extends React.Component {
   }
 }
 
-http.get('http://127.0.0.1:3000/movies', (res) => {
-  let data = '';
-  res.on('data', chunk => data += chunk);
-  res.on('end', () => {
-    data = JSON.parse(data);
+http.get('http://127.0.0.1:3000/load', (res) => {
+  res.on('data', (results) => {
+    var data = JSON.parse('' + results);
     ReactDOM.render( <MovieList movies={data} />, document.getElementById('app'));
   });
 });

@@ -11,11 +11,34 @@ body {
   text-align: center;
   padding:10px;
   margin: 10px;
-  background-color: gold;
+  background-color: yellow;
 }
 .movie:hover {
-  background-color: lightgoldenrodyellow;
+  background-color: gold;
 }
 .watched {
   float: left;
+}
+.details {
+  margin: 10px;
+  background-color: lightgoldenrodyellow;
+  display: inline-block;
+}
+.poster {
+  float: right;
+  width: 100px;
+  height: 150px;
+  margin: 10px;
+}
+.detailtext {
+  display: inline-block;
+  margin: 10px;
+  width: 80%;
+}
+.text {
+  text-align: left;
+}
+.year {
+  text-align: right;
+  color:crimson;
 }

@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 
 router.get('/movies', controllers.get);
 router.post('/movies', controllers.post);
+router.get('/load', controllers.load);
 
 app.use('/', router);
 app.use(express.static(path.join(__dirname, '../client/dist')));
