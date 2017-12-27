@@ -7,7 +7,7 @@ const Films = orm.define('Films', {
   title: Sequelize.STRING,
   overview: Sequelize.TEXT,
   release_date: Sequelize.DATEONLY,
-  image: Sequelize.STRING
+  poster_path: Sequelize.STRING
 });
 
 Films.sync();

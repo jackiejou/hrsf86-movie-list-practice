@@ -1,3 +1,3 @@
-create table movies;
+create database movies;
 
 use movies;

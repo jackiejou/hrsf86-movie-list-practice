@@ -11,15 +11,15 @@ class MovieList extends React.Component {
     this.state = {
       movies: props.movies,
       filter: function() {return true},
+      searchFilter: function() {return true},
       searchValue: '',
       addValue: '',
-      searchFilter: function() {return true}
     }
+    this.handleFilterClick = this.handleFilterClick.bind(this);
     this.handleWatch = this.handleWatch.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-    this.handleFilterClick = this.handleFilterClick.bind(this);
-    this.handleAddChange = this.handleAddChange.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleAddChange = this.handleAddChange.bind(this);
     this.handleAddMovie = this.handleAddMovie.bind(this);
   }
   handleFilterClick(event) {
@@ -41,18 +41,34 @@ class MovieList extends React.Component {
     arr[index].show = !arr[index].show;
     this.setState({movies: arr});
   }
-  handleAddChange(event) {
-    this.setState({addValue: event.target.value});
-  }
   handleSearchChange(event) {
     this.setState({searchValue: event.target.value});
     let regex = new RegExp('\\w*' + event.target.value + '\\w*', 'i');
     this.setState({searchFilter: function(movie) {return regex.test(movie.title)}});
   }
+  handleAddChange(event) {
+    this.setState({addValue: event.target.value});
+  }
   handleAddMovie() {
     let arr = this.state.movies.slice();
-    arr.push({title: this.state.addValue, year: 2000, watch: false, show: false});
-    this.setState({movies: arr});
+    // post request
+    let options = {
+      host: '127.0.0.1',
+      port: 3000,
+      path: '/movies',
+      method: 'POST'
+    };
+    let req = http.request(options, res => {
+      res.on('data', results => {
+        arr.push(JSON.parse(results));
+      });
+      res.on('end', () => {
+        this.setState({movies: arr});
+      });
+    });
+    req.write(this.state.addValue);
+    req.end();
+    this.setState({addValue: ''});
   }
 
   render() {

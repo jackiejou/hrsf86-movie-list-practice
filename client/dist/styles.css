@@ -1,5 +1,9 @@
 body {
   text-align: center;
+  font-family: Arial;
+}
+h1 {
+  font-family: serif;
 }
 .movies {
   width: 800px;
