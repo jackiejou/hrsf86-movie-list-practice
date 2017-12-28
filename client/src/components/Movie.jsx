@@ -1,8 +1,8 @@
 import React from 'react';
 import MovieDetails from './MovieDetails.jsx';
 
-const Movie = (props) => {
-  let toggleWatch = (event) => {
+const Movie = props => {
+  let toggleWatch = event => {
     props.handleWatch(props.index);
     event.stopPropagation();
   };
@@ -20,7 +20,7 @@ const Movie = (props) => {
         {props.movie.title}
       </div>
       <div>
-        {props.movie.show ? <MovieDetails movie={props.movie} /> : ''}
+        {props.movie.show ? <MovieDetails movie={props.movie}/> : ''}
       </div>
     </div>
   );

@@ -7,9 +7,10 @@ const Films = orm.define('Films', {
   title: Sequelize.STRING,
   overview: Sequelize.TEXT,
   release_date: Sequelize.DATEONLY,
-  poster_path: Sequelize.STRING
+  poster_path: Sequelize.STRING,
+  watched: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false}
 });
 
 Films.sync();
 
-exports.Films = Films;
+module.exports = Films;

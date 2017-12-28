@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MovieDetails = (props) => (
+const MovieDetails = props => (
   <div className='details'>
     <img className='poster' src={'https://image.tmdb.org/t/p/w1280/' + props.movie.poster_path}/>
     <div className='detailtext'>

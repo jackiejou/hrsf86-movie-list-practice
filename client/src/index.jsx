@@ -10,8 +10,8 @@ class MovieList extends React.Component {
     super(props);
     this.state = {
       movies: props.movies,
-      filter: function() {return true},
-      searchFilter: function() {return true},
+      filter: () => true,
+      searchFilter: () => true,
       searchValue: '',
       addValue: '',
     }
@@ -24,17 +24,32 @@ class MovieList extends React.Component {
   }
   handleFilterClick(event) {
     if (event.target.value === 'watched') {
-      this.setState({filter: function (movie) {return movie.watched}});
+      this.setState({filter: movie => movie.watched});
     } else if (event.target.value === 'towatch') {
-      this.setState({filter: function (movie) {return !movie.watched}});
+      this.setState({filter: movie => !movie.watched});
     } else {
-      this.setState({filter: function () {return true}});
+      this.setState({filter: () => true});
     }
   }
   handleWatch(index) {
     let arr = this.state.movies.slice();
-    arr[index].watched = !arr[index].watched;
-    this.setState({movies: arr});
+    // put request
+    let options = {
+      host: '127.0.0.1',
+      port: 3000,
+      path: '/movies',
+      method: 'PUT'
+    };
+    let req = http.request(options, res => {
+      res.on('data', results => {
+        arr[index] = JSON.parse(results);
+      });
+      res.on('end', () => {
+        this.setState({movies: arr});
+      });
+    });
+    req.write(index + '');
+    req.end();
   }
   handleToggle(index) {
     let arr = this.state.movies.slice();
@@ -43,7 +58,7 @@ class MovieList extends React.Component {
   }
   handleSearchChange(event) {
     this.setState({searchValue: event.target.value});
-    let regex = new RegExp('\\w*' + event.target.value + '\\w*', 'i');
+    let regex = new RegExp(`\\w*${event.target.value}\\w*`, 'i');
     this.setState({searchFilter: function(movie) {return regex.test(movie.title)}});
   }
   handleAddChange(event) {
@@ -106,9 +121,8 @@ class MovieList extends React.Component {
   }
 }
 
-http.get('http://127.0.0.1:3000/load', (res) => {
-  res.on('data', (results) => {
-    var data = JSON.parse('' + results);
-    ReactDOM.render( <MovieList movies={data} />, document.getElementById('app'));
+http.get('http://127.0.0.1:3000/load', res => {
+  res.on('data', results => {
+    ReactDOM.render( <MovieList movies={JSON.parse(results)} />, document.getElementById('app'));
   });
 });
